@@ -1,21 +1,19 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+
 from db_config import db
+from models.calc_models import CalcPost
+from endpoints.calc import router
 
 
 app = FastAPI()
+app.include_router(router)
 
 
 @app.on_event("startup")
 async def startup():
     await db.create()
     await db.create_table_users()
-
-
-@app.post("/calc")
-async def calc_post():
-    return {"message": "calc"}
-
 
 
 if __name__ == "__main__":
