@@ -47,9 +47,15 @@ class Database:
         sql="""
                 CREATE TABLE IF NOT EXISTS calc_history(
                 id_number SERIAL PRIMARY KEY,
-                operation TEXT NOT NULL,
-                result TEXT NOT NULL,
+                expression TEXT NOT NULL,
+                result FLOAT NOT NULL,
                 status VARCHAR(7) NOT NULL
                 );
             """
         await self.execute(sql, execute=True)
+
+    async def create_expression(self, expression, result, status):
+        sql="""
+                INSERT INTO calc_history(expression, result, status) VALUES ($1, $2, $3)
+        """
+        await self.execute(sql, expression, result, status, execute = True)
