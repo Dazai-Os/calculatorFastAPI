@@ -59,3 +59,8 @@ class Database:
                 INSERT INTO calc_history(expression, result, status) VALUES ($1, $2, $3)
         """
         await self.execute(sql, expression, result, status, execute = True)
+
+    async def expression_success(self, limit):
+        sql = f"SELECT calc_history.expression, calc_history.result, status FROM calc_history ORDER BY id_number DESC LIMIT {limit}"
+                
+        return await self.execute(sql, fetch = True)

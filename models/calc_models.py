@@ -39,8 +39,3 @@ class CalcPost(BaseModel):
             if v[i].value == int(v[i].value):
                 v[i].value == int(v[i].value)
         return v
-
-class CalcResponse(BaseModel):
-    operation : str
-    result : float
-    status : str

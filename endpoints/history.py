@@ -1,9 +1,12 @@
 from fastapi import APIRouter
 
-from models.history_models import HistoryPost
+from db_config import db
+from models.history_models import HistoryPost, HistoryRespones
 
 router = APIRouter()
 
 @router.post("/history")
 async def history_post(body: HistoryPost):
-    return{"Успех": "Успешный"}
+    db_result = await db.expression_success(body.limit)
+
+    return db_result

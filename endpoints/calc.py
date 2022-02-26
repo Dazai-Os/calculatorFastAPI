@@ -1,7 +1,7 @@
 from urllib import response
 from fastapi import APIRouter
 
-from models.calc_models import CalcPost, CalcResponse
+from models.calc_models import CalcPost
 from db_config import db
 
 router = APIRouter()
