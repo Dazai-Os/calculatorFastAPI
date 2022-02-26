@@ -4,11 +4,12 @@ from pydantic import BaseModel, validator
 from db_config import db
 
 
+
 class Expression(BaseModel):
     operation : str
     value : float
 
-
+#Модель данных с которой работает функция calc_post, валидирует данные на правильность
 class CalcPost(BaseModel):
     operation1 : str
     value1 : float

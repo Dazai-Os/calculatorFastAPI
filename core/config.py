@@ -12,14 +12,8 @@ class DbConfig:
 
 
 @dataclass
-class Miscellaneous:
-    other_params: str = None
-
-
-@dataclass
 class Config:
     db: DbConfig
-    misc: Miscellaneous
 
 
 def load_config(path: str = None):
@@ -32,6 +26,5 @@ def load_config(path: str = None):
             password=env.str('DB_PASS'),
             user=env.str('DB_USER'),
             database=env.str('DB_NAME')
-        ),
-        misc=Miscellaneous()
+        )
     )

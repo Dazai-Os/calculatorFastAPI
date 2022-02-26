@@ -4,8 +4,10 @@ from fastapi import APIRouter
 from models.calc_models import CalcPost
 from db_config import db
 
+#Инициализируем роутер
 router = APIRouter()
 
+#Функция калькулятор
 @router.post("/calc")
 async def calc_post(body: CalcPost):
     result = 0
