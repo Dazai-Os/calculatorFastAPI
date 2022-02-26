@@ -21,6 +21,9 @@ async def calc_post(body: CalcPost):
 
     exp_str += op1 + str(val1)
     for i in range(len(exp)):
+        if exp[i].value == int(exp[i].value):
+            exp[i].value = int(exp[i].value)
+
         exp_str += exp[i].operation + str(exp[i].value)
 
         if exp[i].operation == "+":
@@ -33,8 +36,10 @@ async def calc_post(body: CalcPost):
             result /= exp[i].value
         else:
             raise ValueError("Ваша операция не является арифметической")
-        result = round(result, 3)
-    
+
+    result = round(result, 3)
+    if result == int(result):
+        result = int(result)
     await db.create_expression(exp_str, result, "success")
 
     return f"{exp_str} = {result}"

@@ -3,11 +3,13 @@ from fastapi import FastAPI, HTTPException
 
 from db_config import db
 from models.calc_models import CalcPost
-from endpoints.calc import router
+from endpoints import calc
+from endpoints import history
 
 
 app = FastAPI()
-app.include_router(router)
+app.include_router(calc.router)
+app.include_router(history.router)
 
 
 @app.on_event("startup")

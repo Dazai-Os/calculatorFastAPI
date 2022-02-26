@@ -24,6 +24,8 @@ class CalcPost(BaseModel):
     def val_negative(cls, v):
         if v < 0:
             raise ValueError("Вы ввели отрицательно число")
+        if v == int(v):
+            return int(v)
         return v
 
     @validator("expression")
@@ -33,6 +35,9 @@ class CalcPost(BaseModel):
                 raise ValueError("Введена некоректная арифметическая операция")
             elif v[i].value < 0:
                 raise ValueError("Вы ввели отрицательное число")
+            
+            if v[i].value == int(v[i].value):
+                v[i].value == int(v[i].value)
         return v
 
 class CalcResponse(BaseModel):
