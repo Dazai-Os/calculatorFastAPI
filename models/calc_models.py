@@ -1,13 +1,12 @@
 from typing import Optional
-from pydantic import BaseModel, condecimal, validator
-from decimal import Decimal, getcontext
-from fastapi import  HTTPException
+from pydantic import BaseModel, validator
+
+from db_config import db
 
 
 class Expression(BaseModel):
     operation : str
     value : float
-
 
 
 class CalcPost(BaseModel):
@@ -19,11 +18,13 @@ class CalcPost(BaseModel):
     def op1_plus_or_minus(cls, op):
         if op not in ["+", "-"]:
             raise ValueError("В начале выражения стоит не + или -")
+        return op
 
     @validator("value1")
     def val_negative(cls, v):
         if v < 0:
             raise ValueError("Вы ввели отрицательно число")
+        return v
 
     @validator("expression")
     def expression_op_val(cls, v):
@@ -32,3 +33,9 @@ class CalcPost(BaseModel):
                 raise ValueError("Введена некоректная арифметическая операция")
             elif v[i].value < 0:
                 raise ValueError("Вы ввели отрицательное число")
+        return v
+
+class CalcResponse(BaseModel):
+    operation : str
+    result : float
+    status : str
